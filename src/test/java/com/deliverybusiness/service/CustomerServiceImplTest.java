@@ -2,15 +2,13 @@ package com.deliverybusiness.service;
 
 import com.deliverybusiness.Dao.ICustomerDao;
 import com.deliverybusiness.Dao.IOrderDao;
-import com.deliverybusiness.model.City;
-import com.deliverybusiness.model.Customer;
+import com.deliverybusiness.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +35,13 @@ class CustomerServiceImplTest {
 
     @Test
     void findById() {
+       Customer customer = customerServiceImpl.findById(2);
+       Optional<Customer> customer1 = iCustomerDao.findById(2);
+       assertNotNull(customer);
+       assertTrue(customer1.isPresent());
+       assertEquals(customer.getFullName(), customer1.get().getFullName());
+
+
     }
 
     @Test
@@ -64,12 +69,6 @@ class CustomerServiceImplTest {
         assertEquals(customer.getFullName(), findCustomer.get().getFullName());
 
     }
-
-    @Test
-    void findByFullName() {
-
-    }
-
     @Test
     void findByCityAndAddress() {
         List<Customer> musterijeIzIstogGrada = customerServiceImpl.findByCityAndAddress("1300 kaplara", "Novi Sad");
@@ -94,9 +93,26 @@ class CustomerServiceImplTest {
 
     @Test
     void findCustomerByOrder() {
+
+        List<Customer> customers = customerServiceImpl.findCustomerByOrder(22.99);
+        List<Customer> customerList = iOrderDao.findCustomerByOrder(22.99);
+        assertEquals(customers.size(), customerList.size());
     }
 
     @Test
     void findByCustomer() {
     }
+
+    //    public Orders(int id, LocalDate orderDate, LocalDate preparedDate, LocalDate takenOverDate,
+    //    boolean isPaid, double price, String note,
+    //    Restaurant restaurant, Customer customer, Coupons coupons, OrderStatus orderStatus) {
+//        Orders orders = new Orders(156, LocalDate.of(2023, 1, 15),
+//                LocalDate.of(2023, 1, 15),
+//                LocalDate.of(2023, 1, 16),
+//                true, 22.99, "nova porudzbina",
+//                new Restaurant(1, "Panera Bread", true, "Fast food",
+//                        new City(1, "Novi Sad", "21000")),
+//                new Customer(232, "Emilia Clarke", "Petra Drapsina",
+//                        new City(1, "Novi Sad", "21000")), new Coupons(1,1, "10%",
+//                new Restaurant()), new OrderStatus(1, "Ordered"));
 }

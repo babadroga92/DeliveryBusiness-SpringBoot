@@ -37,7 +37,7 @@ public class CityServiceImpl implements ICityService {
         if (optional.isPresent()) {
             return optional.get();
         } else {
-            throw new WrongIdException("Id doesnt exist");
+            throw new WrongIdException("City with " + id + " doesnt exist");
         }
     }
 

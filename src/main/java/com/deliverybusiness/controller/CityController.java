@@ -6,6 +6,8 @@ import com.deliverybusiness.model.view.View;
 import com.deliverybusiness.service.CityServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,22 +25,21 @@ public class CityController {
 
     @JsonView(View.Dragana.class)
     @RequestMapping(method= RequestMethod.GET,produces ="application/json")
-    public List<City> getAll(){
-        return cityService.findAll();
+    public ResponseEntity<List<City>> getAll(){
+        return new ResponseEntity<>(cityService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    //@RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public City getById(@PathVariable int id) throws WrongIdException {
-        return cityService.findById(id);
+    public ResponseEntity<City> getById(@PathVariable int id) throws WrongIdException {
+        return new ResponseEntity<>(cityService.findById(id), HttpStatus.OK);
     }
     @DeleteMapping("/{id}")
     public String deleteCity(@PathVariable int id){
         return cityService.removeCity(id);
     }
     @PostMapping
-    public City addCity(@RequestBody @Valid City city){
-        return cityService.addCity(city);
+    public ResponseEntity<City> addCity(@RequestBody @Valid City city){
+        return new ResponseEntity<>(cityService.addCity(city), HttpStatus.CREATED);
     }
     @PutMapping("/{id}")
     public City updateCity(@PathVariable int id, @RequestBody @Valid City city){

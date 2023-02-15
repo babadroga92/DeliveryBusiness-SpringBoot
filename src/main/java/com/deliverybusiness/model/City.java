@@ -24,7 +24,7 @@ public class City {
 
         @JsonView(View.Internal.class)
         @Column(name="zipCode")
-        @Size(min=0,max=50, message="Name cant be less than zero nor more than 50") // dajemo random range za polje
+        @Size(min=0,max=5, message="Zipcode cant be less than zero nor more than 5") // dajemo random range za polje
         private String zipCode;
 
         public City() {

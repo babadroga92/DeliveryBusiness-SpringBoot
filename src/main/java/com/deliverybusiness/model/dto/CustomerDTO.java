@@ -1,6 +1,10 @@
 package com.deliverybusiness.model.dto;
 
 public class CustomerDTO {
+
+    /*
+    Data transfer object.
+     */
     private String firstName;
 
     private String lastName;
