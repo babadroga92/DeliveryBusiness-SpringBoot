@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController  // oznaka za kontroler
-@RequestMapping("/city") //
+@RestController
+@RequestMapping("/city")
 public class CityController {
 
     private CityServiceImpl cityService;

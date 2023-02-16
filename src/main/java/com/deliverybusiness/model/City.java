@@ -1,19 +1,17 @@
 package com.deliverybusiness.model;
-
 import com.deliverybusiness.model.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-@Entity //klasa za bazu podataka
-@Table(name="City") //tabela iz MYSQL baze
+@Entity
+@Table(name="City")
 public class City {
     @JsonView(View.Dragana.class)
 
-        @Id //prestavlja primary key
+        @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name="ID")
         private int id;
@@ -25,11 +23,10 @@ public class City {
 
         @JsonView(View.Internal.class)
         @Column(name="zipCode")
-        @Size(min=0,max=5) // dajemo random range za polje
+        @Size(min=0,max=5)
         private String zipCode;
 
         public City() {
-            // neparametrizovani konstruktor :D aka default
         }
 
         public City(int id, String name, String zipCode) {

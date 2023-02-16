@@ -98,21 +98,4 @@ class CustomerServiceImplTest {
         List<Customer> customerList = iOrderDao.findCustomerByOrder(22.99);
         assertEquals(customers.size(), customerList.size());
     }
-
-    @Test
-    void findByCustomer() {
-    }
-
-    //    public Orders(int id, LocalDate orderDate, LocalDate preparedDate, LocalDate takenOverDate,
-    //    boolean isPaid, double price, String note,
-    //    Restaurant restaurant, Customer customer, Coupons coupons, OrderStatus orderStatus) {
-//        Orders orders = new Orders(156, LocalDate.of(2023, 1, 15),
-//                LocalDate.of(2023, 1, 15),
-//                LocalDate.of(2023, 1, 16),
-//                true, 22.99, "nova porudzbina",
-//                new Restaurant(1, "Panera Bread", true, "Fast food",
-//                        new City(1, "Novi Sad", "21000")),
-//                new Customer(232, "Emilia Clarke", "Petra Drapsina",
-//                        new City(1, "Novi Sad", "21000")), new Coupons(1,1, "10%",
-//                new Restaurant()), new OrderStatus(1, "Ordered"));
 }

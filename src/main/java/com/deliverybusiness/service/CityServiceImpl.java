@@ -23,7 +23,6 @@ public class CityServiceImpl implements ICityService {
 
     public CityServiceImpl() {
     }
-      //connecting Dao to implementation
     public CityServiceImpl(ICityDao iCityDao) {
         this.iCityDao = iCityDao;
     }

@@ -14,19 +14,15 @@ public class MenuItem {
     private String description;
     @Column(name = "Price")
     private double price;
-    @ManyToOne
-    @JoinColumn(name = "MenuGroup_ID", referencedColumnName = "ID")
-    private MenuGroup menuGroup;
 
     public MenuItem() {
     }
 
-    public MenuItem(int id, String name, String description, double price, MenuGroup menuGroup) {
+    public MenuItem(int id, String name, String description, double price) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
-        this.menuGroup = menuGroup;
     }
 
     public int getId() {
@@ -61,14 +57,6 @@ public class MenuItem {
         this.price = price;
     }
 
-    public MenuGroup getMenuGroup() {
-        return menuGroup;
-    }
-
-    public void setMenuGroup(MenuGroup menuGroup) {
-        this.menuGroup = menuGroup;
-    }
-
     @Override
     public String toString() {
         return "MenuItem{" +
@@ -76,7 +64,6 @@ public class MenuItem {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", menuGroup=" + menuGroup +
                 '}';
     }
 }

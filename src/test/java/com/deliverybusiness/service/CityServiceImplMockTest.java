@@ -30,8 +30,8 @@ class CityServiceImplMockTest {
 
     @BeforeEach
     void setUp(){
-        iCityDao = Mockito.mock(ICityDao.class); //mock Dao, same as @Mock annotation
-        cityServiceImpl = new CityServiceImpl(iCityDao); // pass mocked Dao
+        iCityDao = Mockito.mock(ICityDao.class);
+        cityServiceImpl = new CityServiceImpl(iCityDao);
         this.city = new City(20, "Kraljevo", "23321");
     }
 

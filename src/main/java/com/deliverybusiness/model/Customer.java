@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="Customer")
 public class Customer {
-    @Id //prestavlja primary key
+    @Id
     @Column(name = "ID")
     private int id;
     @JsonView(View.Public.class)

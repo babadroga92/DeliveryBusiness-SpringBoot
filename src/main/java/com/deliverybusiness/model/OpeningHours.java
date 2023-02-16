@@ -1,10 +1,8 @@
 package com.deliverybusiness.model;
-
+import com.deliverybusiness.enums.DayOfWeek;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import java.sql.Time;
 
 @Entity
 @Table(name = "OpeningHours")
@@ -19,9 +17,7 @@ public class OpeningHours {
     @Column(name = "ToTime")
     @Pattern(regexp = "([0-1][0-9]|2[0-3]):[0-5][0-9]", message = "Time not in correct format.")
     private String toTime;
-    @ManyToOne
-    @JoinColumn(name = "WeekDay_ID",referencedColumnName = "ID")
-    private Weekday weekday;
+    private DayOfWeek dayOfWeek;
     @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "restaurant_ID", referencedColumnName = "ID")
@@ -30,11 +26,11 @@ public class OpeningHours {
     public OpeningHours() {
     }
 
-    public OpeningHours(int id, String fromTime, String toTime, Weekday weekday, Restaurant restaurant) {
+    public OpeningHours(int id, String fromTime, String toTime, DayOfWeek dayOfWeek, Restaurant restaurant) {
         this.id = id;
         this.fromTime = fromTime;
         this.toTime = toTime;
-        this.weekday = weekday;
+        this.dayOfWeek = dayOfWeek;
         this.restaurant = restaurant;
     }
 
@@ -62,12 +58,12 @@ public class OpeningHours {
         this.toTime = toTime;
     }
 
-    public Weekday getWeekday() {
-        return weekday;
+    public DayOfWeek getWeekday() {
+        return dayOfWeek;
     }
 
-    public void setWeekday(Weekday weekday) {
-        this.weekday = weekday;
+    public void setWeekday(DayOfWeek weekday) {
+        this.dayOfWeek = dayOfWeek;
     }
 
     public Restaurant getRestaurant() {
@@ -84,7 +80,7 @@ public class OpeningHours {
                 "id=" + id +
                 ", fromTime=" + fromTime +
                 ", toTime=" + toTime +
-                ", weekday=" + weekday +
+                ", weekday=" + dayOfWeek +
                 ", restaurant=" + restaurant +
                 '}';
     }

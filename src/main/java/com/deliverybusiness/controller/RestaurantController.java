@@ -31,16 +31,7 @@ public class RestaurantController {
     public List<Restaurant> findByName(@RequestParam (name = "name", required = true)String name){
         return restaurantService.findByName(name);
     }
-    /*
-    @DeleteMapping("/{id}")
-    public String deleteCity(@PathVariable int id){
-        return cityService.removeCity(id);
-    }
-    @PostMapping
-    public City addCity(@RequestBody @Valid City city){
-        return cityService.addCity(city);
-    }
-     */
+
     @DeleteMapping("/{id}")
     public String deleteRestaurant(@PathVariable int id){
         return restaurantService.removeRestaurant(id);

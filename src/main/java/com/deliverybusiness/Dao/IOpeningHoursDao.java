@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface IOpeningHoursDao extends JpaRepository<OpeningHours, Integer> {
 
-    @Query("Select o from OpeningHours o where o.weekday.dayOfWeek = com.deliverybusiness.enums.DayOfWeek.MONDAY")
+    @Query("Select o from OpeningHours o where o.dayOfWeek = com.deliverybusiness.enums.DayOfWeek.MONDAY")
     List<OpeningHours> findWorkingHoursOnMonday();
 }

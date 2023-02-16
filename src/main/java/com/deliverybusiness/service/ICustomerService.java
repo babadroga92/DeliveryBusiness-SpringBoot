@@ -1,6 +1,4 @@
 package com.deliverybusiness.service;
-
-import com.deliverybusiness.model.City;
 import com.deliverybusiness.model.Customer;
 import com.deliverybusiness.model.Orders;
 import com.deliverybusiness.model.dto.CustomerDTO;

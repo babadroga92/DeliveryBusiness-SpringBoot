@@ -15,7 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import java.util.HashMap;
 
 
-@ControllerAdvice //global exception handler annotation
+@ControllerAdvice
 public class ExceptionMapper extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid
@@ -32,7 +32,6 @@ public class ExceptionMapper extends ResponseEntityExceptionHandler {
         StringBuilder message = new StringBuilder();
         for (FieldError fieldError : methodArgumentNotValidException.getBindingResult().getFieldErrors()) {
             message.append(String.format("%s: %s. ", fieldError.getField(), fieldError.getDefaultMessage()));
-           // message.append(fieldError.getField() + ": " + fieldError.getDefaultMessage() + " ");
         }
             HashMap<String, String> mapa = new HashMap<>();
             mapa.put("Info", message.toString());
