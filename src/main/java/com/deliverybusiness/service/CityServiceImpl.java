@@ -34,10 +34,7 @@ public class CityServiceImpl implements ICityService {
 
     @Override
     public City findById(int id) throws WrongIdException {
-        Optional<City> optional = this.iCityDao.findById(id); /* checks if City with particular id exist.
-        If its there, it will return it
-        ,otherwise it will return null
-        */
+        Optional<City> optional = this.iCityDao.findById(id);
 
         if (optional.isPresent()) {
             return optional.get();
