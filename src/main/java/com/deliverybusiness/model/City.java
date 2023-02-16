@@ -18,13 +18,14 @@ public class City {
         @Column(name="ID")
         private int id;
         @JsonView(View.Public.class)
+        @Size(min = 2, max = 30)
         @Column(name="name")
-        @NotNull // polje je obavezno
+        @NotNull
         private String name;
 
         @JsonView(View.Internal.class)
         @Column(name="zipCode")
-        @Size(min=0,max=5, message="Zipcode cant be less than zero nor more than 5") // dajemo random range za polje
+        @Size(min=0,max=5) // dajemo random range za polje
         private String zipCode;
 
         public City() {

@@ -3,6 +3,10 @@ package com.deliverybusiness.service;
 import com.deliverybusiness.Dao.ICityDao;
 import com.deliverybusiness.exception.WrongIdException;
 import com.deliverybusiness.model.City;
+
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +16,8 @@ import java.util.Optional;
 
 @Service
 public class CityServiceImpl implements ICityService {
+
+    private final Logger logger = (Logger) LoggerFactory.getLogger(this.getClass());
     @Autowired
     private ICityDao iCityDao;
 
@@ -56,6 +62,7 @@ public class CityServiceImpl implements ICityService {
     @Override
     public City updateCity(City city, int id) {
         City cityDb = findById(id);
+        logger.info("I found the city with id {}",cityDb.getId());
         cityDb.setName(city.getName());
         cityDb.setZipCode(city.getZipCode());
         return this.iCityDao.save(cityDb);
