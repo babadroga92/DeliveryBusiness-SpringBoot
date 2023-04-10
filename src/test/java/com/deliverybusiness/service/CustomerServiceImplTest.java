@@ -90,7 +90,7 @@ class CustomerServiceImplTest {
         Customer customer = new Customer(232, "Emilia Clarke", "Petra Drapsina",
                 new City(1, "Novi Sad", "21000"));
         customerServiceImpl.addCustomer(customer);
-        customer.setFullName("Olivia Benson");
+        customer.setFullName("Olivia Bensona");
         customerServiceImpl.updateCustomer(customer, 232);
         Optional<Customer> optionalCustomer = iCustomerDao.findById(232);
         assertTrue(optionalCustomer.isPresent());
