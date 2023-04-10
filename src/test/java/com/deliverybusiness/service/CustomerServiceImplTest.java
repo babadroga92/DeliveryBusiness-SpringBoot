@@ -8,6 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 import java.util.Optional;
@@ -71,11 +75,14 @@ class CustomerServiceImplTest {
     }
     @Test
     void findByCityAndAddress() {
-        List<Customer> musterijeIzIstogGrada = customerServiceImpl.findByCityAndAddress("1300 kaplara", "Novi Sad");
-        List<Customer> musterijeIzGrada = iCustomerDao.findByCityAndAddress("1300 kaplara", "Novi Sad");
+        Page<Customer> musterijeIzIstogGrada =
+                customerServiceImpl.findByCityAndAddress
+                        ("1300 kaplara", "Novi Sad", PageRequest.of(0,5, Sort.by(Sort.Direction.ASC,"address")));
+        Page<Customer> musterijeIzGrada =
+                iCustomerDao.findByCityAndAddress("1300 kaplara", "Novi Sad",PageRequest.of(0,5, Sort.by(Sort.Direction.ASC,"address")));
         assertNotNull(musterijeIzIstogGrada);
         assertNotNull(musterijeIzGrada);
-        assertEquals(musterijeIzIstogGrada.size(), musterijeIzGrada.size());
+        assertEquals(musterijeIzIstogGrada.getContent().size(), musterijeIzGrada.getContent().size());
     }
 
     @Test

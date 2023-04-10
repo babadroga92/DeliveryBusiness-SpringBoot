@@ -1,5 +1,7 @@
 package com.deliverybusiness.Dao;
 import com.deliverybusiness.model.Customer;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -19,7 +21,7 @@ public interface ICustomerDao extends JpaRepository<Customer, Integer> {
 
 
     @Query("Select c from Customer c WHERE (:address is null or c.address = :address) and (:name is null or c.city.name = :name)")
-    List<Customer> findByCityAndAddress(String address, String name);
+    Page<Customer> findByCityAndAddress(String address, String name, Pageable pageable);
 
 
 

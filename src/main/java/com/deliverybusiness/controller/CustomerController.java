@@ -51,8 +51,9 @@ public class CustomerController {
     }
 
     @GetMapping("/address")
-    public List<Customer> findByCityAndAddress(@RequestParam(name = "address", required = false)String address, @RequestParam(name = "name", required = false)String name){
-        return customerService.findByCityAndAddress(address,name);
+    public Page<Customer> findByCityAndAddress(@RequestParam(name = "address", required = false)String address,
+                                               @RequestParam(name = "name", required = false)String name, Pageable pageable){
+        return customerService.findByCityAndAddress(address,name, pageable);
     }
 
     @PutMapping("/address")

@@ -18,7 +18,7 @@ public interface ICustomerService {
 
     List<Customer> findByFullName(String name);
 
-    List<Customer> findByCityAndAddress(String address, String name);
+    Page<Customer> findByCityAndAddress(String address, String name, Pageable pageable);
 
     Customer updateCustomerName(String address, String name, CustomerDTO customerDTO);
 

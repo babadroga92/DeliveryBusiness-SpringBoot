@@ -29,7 +29,7 @@ public class CityController {
         return new ResponseEntity<>(cityService.findAll(), HttpStatus.OK);
     }
 
-@JsonView(View.ShowAll.class)
+    @JsonView(View.ShowAll.class)
     @GetMapping("/{id}")
     public ResponseEntity<City> getById(@PathVariable int id) throws WrongIdException {
         return new ResponseEntity<>(cityService.findById(id), HttpStatus.OK);
@@ -59,7 +59,7 @@ public class CityController {
     public List<City> saveList(@RequestBody @Valid List<City> cityList){
         return cityService.saveList(cityList);
     }
-@JsonView(View.ShowZipCode.class)
+    @JsonView(View.ShowZipCode.class)
     @GetMapping("/zipCode")
     public City findByZipCode(@RequestParam(name = "zipCode", required = true)String zipCode){
         return cityService.findByZipCode(zipCode);

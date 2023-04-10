@@ -72,17 +72,17 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public List<Customer> findByCityAndAddress(String address, String name) {
-        return this.iCustomerDao.findByCityAndAddress(address,name);
+    public Page<Customer> findByCityAndAddress(String address, String name, Pageable pageable) {
+        return this.iCustomerDao.findByCityAndAddress(address,name, pageable);
     }
 
     @Override
     public Customer updateCustomerName(String address, String name, CustomerDTO customerDTO) {
-        List<Customer> customerList = findByCityAndAddress(address,name);
-        if(customerList.size() > 0){
+        Page<Customer> customerList = findByCityAndAddress(address,name, Pageable.unpaged());
+        if(customerList.getContent().size() > 0){
             String fullName = customerDTO.getFirstName() + " " + customerDTO.getLastName();
-            customerList.get(0).setFullName(fullName);
-           return this.iCustomerDao.save(customerList.get(0));
+            customerList.getContent().get(0).setFullName(fullName);
+           return this.iCustomerDao.save(customerList.getContent().get(0));
         }
         return null;
     }
