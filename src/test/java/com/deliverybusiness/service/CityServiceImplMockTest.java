@@ -4,9 +4,9 @@ import com.deliverybusiness.Dao.ICityDao;
 import com.deliverybusiness.model.City;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
+
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -68,7 +68,6 @@ class CityServiceImplMockTest {
 
     @Test
     void updateCity() {
-
         when(iCityDao.findById(this.city.getId())).thenReturn(Optional.of(this.city));
         this.city.setName("Pancevo");
         when(iCityDao.save(any())).thenReturn(this.city);
@@ -84,11 +83,5 @@ class CityServiceImplMockTest {
         when(iCityDao.saveAll(listaGradova)).thenReturn(listaGradova);
         List<City> lista = cityServiceImpl.saveList(listaGradova);
         assertEquals(listaGradova.size(),lista.size());
-
-    }
-
-
-    @Test
-    void findByNameLike() {
     }
 }

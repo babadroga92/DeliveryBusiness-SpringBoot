@@ -1,6 +1,5 @@
 package com.deliverybusiness.model;
 
-import com.deliverybusiness.model.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
@@ -11,10 +10,10 @@ public class Customer {
     @Id
     @Column(name = "ID")
     private int id;
-    @JsonView(View.Public.class)
+
     @Column(name = "FullName")
     private String fullName;
-    @JsonView(View.Internal.class)
+
     @Column(name = "Address")
     private String address;
 

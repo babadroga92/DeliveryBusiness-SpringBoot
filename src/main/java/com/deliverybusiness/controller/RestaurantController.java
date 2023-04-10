@@ -36,4 +36,9 @@ public class RestaurantController {
     public String deleteRestaurant(@PathVariable int id){
         return restaurantService.removeRestaurant(id);
     }
+
+    @PutMapping("/{id}")
+    public Restaurant updateRestaurant(@PathVariable int id, @RequestBody @Valid Restaurant restaurant){
+        return restaurantService.updateRestaurant(restaurant,id);
+    }
 }

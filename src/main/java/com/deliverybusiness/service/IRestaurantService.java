@@ -14,4 +14,6 @@ public interface IRestaurantService {
     String removeRestaurant(int id);
 
     Restaurant findById(int id) throws WrongIdException;
+
+    Restaurant updateRestaurant(Restaurant restaurant, int id);
 }

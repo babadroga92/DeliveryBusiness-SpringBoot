@@ -2,6 +2,7 @@ package com.deliverybusiness.service;
 
 import com.deliverybusiness.Dao.IRestaurantDao;
 import com.deliverybusiness.exception.WrongIdException;
+import com.deliverybusiness.model.City;
 import com.deliverybusiness.model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,5 +55,14 @@ public class RestaurantServiceImpl implements  IRestaurantService{
             throw new WrongIdException("Id doesnt exist");
         }
 
+    }
+
+    @Override
+    public Restaurant updateRestaurant(Restaurant restaurant, int id) {
+        Restaurant restaurant1 = findById(id);
+        restaurant1.setActive(true);
+        restaurant1.setDescription(restaurant.getDescription());
+        restaurant1.setCity(new City());
+        return  restaurant1;
     }
 }

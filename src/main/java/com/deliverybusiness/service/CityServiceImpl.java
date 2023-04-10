@@ -21,6 +21,7 @@ public class CityServiceImpl implements ICityService {
     @Autowired
     private ICityDao iCityDao;
 
+
     public CityServiceImpl() {
     }
     public CityServiceImpl(ICityDao iCityDao) {
@@ -80,5 +81,10 @@ public class CityServiceImpl implements ICityService {
     @Override
     public List<City> findByNameLike(String pattern) {
         return this.iCityDao.findByNameContaining(pattern);
+    }
+
+    @Override
+    public City findByZipCode(String zipCode) {
+        return this.iCityDao.findByZipCode(zipCode);
     }
 }

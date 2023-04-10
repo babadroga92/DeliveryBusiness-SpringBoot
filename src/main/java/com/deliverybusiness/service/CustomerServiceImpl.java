@@ -42,10 +42,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public Customer findById(int id) {
-        Optional<Customer> optional = this.iCustomerDao.findById(id); /* checks if City with particular id exist.
-        If its there, it will return it
-        ,otherwise it will return null
-        */
+        Optional<Customer> optional = this.iCustomerDao.findById(id);
 
         if (optional.isPresent()) {
             return optional.get();
@@ -61,7 +58,7 @@ public class CustomerServiceImpl implements ICustomerService {
 
     @Override
     public Customer updateCustomer(Customer customer, int id) {
-        Customer customerDb = findById(id); //trazimo klijenta sa specificnim Id
+        Customer customerDb = findById(id);
         customerDb.setFullName(customer.getFullName());
         customerDb.setAddress(customer.getAddress());
         customerDb.setCity(customer.getCity());

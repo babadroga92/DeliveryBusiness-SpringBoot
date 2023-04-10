@@ -32,7 +32,6 @@ class CityServiceImplTest {
     public void setup(){
      cityServiceImpl = new CityServiceImpl(iCityDao);
      this.city = new City(20, "Kraljevo", "23321");
-
     }
 
 

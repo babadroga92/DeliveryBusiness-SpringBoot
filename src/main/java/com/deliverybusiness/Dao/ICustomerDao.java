@@ -17,7 +17,14 @@ public interface ICustomerDao extends JpaRepository<Customer, Integer> {
 
     List<Customer> findByFullNameIsNot(String name);
 
-@Query("Select c from Customer c where address=:address and c.city.name=:name")
+
+    @Query("Select c from Customer c WHERE (:address is null or c.address = :address) and (:name is null or c.city.name = :name)")
     List<Customer> findByCityAndAddress(String address, String name);
+
+
+
+
+
+
 
 }

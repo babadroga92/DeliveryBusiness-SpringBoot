@@ -1,6 +1,10 @@
 package com.deliverybusiness.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "MenuItem")
@@ -14,6 +18,10 @@ public class MenuItem {
     private String description;
     @Column(name = "Price")
     private double price;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menuItem")
+    private List<ItemCategory> items = new ArrayList<>();
 
     public MenuItem() {
     }
@@ -55,6 +63,14 @@ public class MenuItem {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<ItemCategory> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ItemCategory> items) {
+        this.items = items;
     }
 
     @Override

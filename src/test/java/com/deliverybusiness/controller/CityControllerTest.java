@@ -5,6 +5,7 @@ import com.deliverybusiness.service.CityServiceImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,12 +67,15 @@ class CityControllerTest {
     @Test
     void getById() throws Exception {
         when(cityServiceImpl.findById(anyInt())).thenReturn(this.city);
-       MvcResult result = mvc.perform(get("/city/1")).andExpect(status().isOk()).andReturn();
+       MvcResult result = mvc.perform(get("/city/1"))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.name",is(this.city.getName())))
+               .andExpect(jsonPath("$.zipCode",is(this.city.getZipCode())))
+               .andReturn();
        City city1 = objectMapper.readValue(result.getResponse().getContentAsByteArray(), City.class);
        assertEquals(city.getName(), city1.getName());
 
     }
-
     @Test
     void deleteCity() throws Exception {
         when(cityServiceImpl.removeCity(anyInt())).thenReturn("good job");
@@ -107,9 +111,24 @@ class CityControllerTest {
         listaGradova.add(new City(18, "Porto", "22222"));
         when(cityServiceImpl.findByName("Porto")).thenReturn(listaGradova);
         MvcResult result = mvc.perform(get("/city/name")
-                .param("name",listaGradova.get(0).getName())).andExpect(status().isOk()).andReturn();
+                .param("name",listaGradova.get(0).getName())).andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name",is(listaGradova.get(0).getName())))
+                .andReturn();
         List<City> vracenaLista = objectMapper.readValue(result.getResponse().getContentAsByteArray(), List.class);
         assertEquals(listaGradova.size(), vracenaLista.size());
+    }
+
+    @Test
+    void getByZipCode() throws Exception {
+        when(cityServiceImpl.findByZipCode("23321")).thenReturn(this.city);
+        MvcResult result = mvc.perform(get("/city/zipCode")
+                .param("zipCode", city.getZipCode())).andExpect(status()
+                .isOk())
+                .andExpect(jsonPath("$.name",is(this.city.getName())))
+                .andExpect(jsonPath("$.zipCode",is(this.city.getZipCode())))
+                .andReturn();
+        City city1 = objectMapper.readValue(result.getResponse().getContentAsByteArray(), City.class);
+        assertEquals(city.getName(), city1.getName());
     }
     @Test
     void saveList() throws Exception {

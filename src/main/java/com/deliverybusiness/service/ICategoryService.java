@@ -2,12 +2,11 @@ package com.deliverybusiness.service;
 
 import com.deliverybusiness.exception.WrongIdException;
 import com.deliverybusiness.model.Category;
-import com.deliverybusiness.model.Menu;
 
 import java.util.List;
 
-public interface IMenuService {
-    List<Menu> findAll();
+public interface ICategoryService {
 
-    Menu findById(int id) throws WrongIdException;
+    List<Category> findAll();
+    Category findById(int id) throws WrongIdException;
 }

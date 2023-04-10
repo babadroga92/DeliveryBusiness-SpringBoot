@@ -20,5 +20,6 @@ public interface ICityService {
      List<City> saveList(List<City> cityList);
 
     List<City> findByNameLike(String pattern);
+    City findByZipCode(String zipCode);
 
 }

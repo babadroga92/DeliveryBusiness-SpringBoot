@@ -3,7 +3,6 @@ import com.deliverybusiness.exception.WrongIdException;
 import com.deliverybusiness.model.Customer;
 import com.deliverybusiness.model.Orders;
 import com.deliverybusiness.model.dto.CustomerDTO;
-import com.deliverybusiness.model.view.View;
 import com.deliverybusiness.service.CustomerServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +30,7 @@ public class CustomerController {
     public Page<Customer> getAll(Pageable page){
         return customerService.findAll(page);
     }
-    //@GetMapping("/{id}")
-    @JsonView(View.Internal.class)
+
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public Customer getById(@PathVariable int id) throws WrongIdException {
         return customerService.findById(id);
@@ -53,7 +51,7 @@ public class CustomerController {
     }
 
     @GetMapping("/address")
-    public List<Customer> findByCityAndAddress(@RequestParam(name = "address")String address, @RequestParam(name = "name")String name){
+    public List<Customer> findByCityAndAddress(@RequestParam(name = "address", required = false)String address, @RequestParam(name = "name", required = false)String name){
         return customerService.findByCityAndAddress(address,name);
     }
 

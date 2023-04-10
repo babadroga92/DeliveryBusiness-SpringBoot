@@ -1,6 +1,9 @@
 package com.deliverybusiness.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.time.LocalDate;
 @Entity
 @Table(name = "Orders")
@@ -13,6 +16,7 @@ public class Orders {
     @Column(name = "PreparedDate")
     private LocalDate preparedDate;
     @Column(name = "TakenOverDate")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate takenOverDate;
     @Column(name = "isPaid")
     private boolean isPaid;

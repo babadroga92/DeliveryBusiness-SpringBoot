@@ -1,6 +1,7 @@
 package com.deliverybusiness.model;
 import com.deliverybusiness.model.view.View;
 import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,19 +10,19 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name="City")
 public class City {
-    @JsonView(View.Dragana.class)
 
+        @JsonView(View.ShowAll.class)
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name="ID")
         private int id;
-        @JsonView(View.Public.class)
+
+        @JsonView(View.ShowName.class)
         @Size(min = 2, max = 30)
         @Column(name="name")
         @NotNull
         private String name;
-
-        @JsonView(View.Internal.class)
+        @JsonView(View.ShowZipCode.class)
         @Column(name="zipCode")
         @Size(min=0,max=5)
         private String zipCode;
