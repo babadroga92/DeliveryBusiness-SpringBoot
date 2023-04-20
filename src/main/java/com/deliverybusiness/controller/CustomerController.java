@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,11 +26,14 @@ public class CustomerController {
     public CustomerController(CustomerServiceImpl customerService) {
         this.customerService = customerService;
     }
-
-
-
+    //Default sort with a single parameter
+    //@PageableDefault(sort="fullName", direction = Sort.Direction.ASC, page = 0, size = 2)
+    // Sort with more parameters
+    //@PageableDefault(page = 0, size = 2)@SortDefault.SortDefaults
+    //            ({@SortDefault(sort = "fullName", direction = Sort.Direction.ASC),
+    //                    @SortDefault(sort = "address", direction = Sort.Direction.DESC)})
     @RequestMapping(path = "/all",method = RequestMethod.GET,produces ="application/json")
-    public Page<Customer> getAll(Pageable page){
+    public Page<Customer> getAll( Pageable page){
         return customerService.findAll(page);
     }
 
