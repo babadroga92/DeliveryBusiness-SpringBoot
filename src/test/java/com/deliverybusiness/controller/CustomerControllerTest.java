@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +78,37 @@ class CustomerControllerTest {
                 .andExpect(jsonPath("$.number").exists())
                 .andExpect(jsonPath("$.number",is(0)))
                 .andExpect(jsonPath("$.content[0].id",is(customer.getId())))
+                .andExpect(jsonPath("$.content[0].fullName", is(customer.getFullName())))
+                .andExpect(jsonPath("$.content[0].city.name", is(customer.getCity().getName())))
+                .andExpect(jsonPath("$.content[0].city.zipCode", is(customer.getCity().getZipCode())))
+                .andExpect(jsonPath("$.content[1].fullName", is(customer2.getFullName())))
+                .andExpect(jsonPath("$.content[1].address", is(customer2.getAddress())))
+                .andExpect(jsonPath("$.content[1].city.name", is(customer2.getCity().getName())))
+                .andReturn();
+    }
+    @Test
+    void findByCityAndAddress() throws Exception {
+        List<Customer> listaMusterija = new ArrayList<>();
+        listaMusterija.add(customer);
+        listaMusterija.add(customer2);
+        Pageable pageable = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "fullName"));
+        Page<Customer> expectedPage = new PageImpl<>(listaMusterija, pageable, listaMusterija.size());
+        when(customerServiceImpl.findByCityAndAddress(any(), any(), any())).thenReturn(expectedPage);
+
+        MvcResult result = mvc.perform(get("/customer/address")
+                .param("size", "5").param("page", "0").param("sort", "fullName, desc")
+                .param("address", "1300 Kaplara").param("name", "Novi Sad"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size").exists())
+                .andExpect(jsonPath("$.totalElements").exists())
+                .andExpect(jsonPath("$.numberOfElements").exists())
+                .andExpect(jsonPath("$.totalPages").exists())
+                .andExpect(jsonPath("$.sort").exists())
+                .andExpect(jsonPath("$.numberOfElements", is(2)))
+                .andExpect(jsonPath("totalElements", is(2)))
+                .andExpect(jsonPath("size",is(5)))
+                .andExpect(jsonPath("number").exists())
+                .andExpect(jsonPath("$.content[0].id", is(customer.getId())))
                 .andExpect(jsonPath("$.content[0].fullName", is(customer.getFullName())))
                 .andExpect(jsonPath("$.content[0].city.name", is(customer.getCity().getName())))
                 .andExpect(jsonPath("$.content[0].city.zipCode", is(customer.getCity().getZipCode())))

@@ -1,4 +1,5 @@
 package com.deliverybusiness.Dao;
+import com.deliverybusiness.model.City;
 import com.deliverybusiness.model.Customer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,14 @@ public interface ICustomerDao extends JpaRepository<Customer, Integer> {
 
     @Query("Select c from Customer c WHERE (:address is null or c.address = :address) and (:name is null or c.city.name = :name)")
     Page<Customer> findByCityAndAddress(String address, String name, Pageable pageable);
+
+    @Query("Select count (c.id) from Customer c where c.city.name = :name")
+    Integer findNumberOfCustomersPerCity(String name);
+
+    @Query("Select count (c.address) from Customer c where c.address = :address")
+    Integer findNumberOfCustomersWhoLiveAtTheSameAddress(String address);
+
+
 
 
 

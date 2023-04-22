@@ -26,4 +26,8 @@ public interface ICustomerService {
 
     List<Orders> findByCustomer(int customerId);
 
+    Integer findNumberOfCustomersPerCity(String name);
+
+    Integer findNumberOfCustomersWhoLiveAtTheSameAddress(String address);
+
 }
