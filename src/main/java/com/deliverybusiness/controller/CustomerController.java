@@ -75,6 +75,14 @@ public class CustomerController {
     public List<Orders> findByCustomer(@RequestParam(name = "customerId")int customerId) {
         return customerService.findByCustomer(customerId);
     }
+    @GetMapping("/numberOfCustomersPerCity")
+    public Integer findNumberOfCustomersPerCity(@RequestParam(name = "name") String name){
+        return customerService.findNumberOfCustomersPerCity(name);
+}
+    @GetMapping("/numberOfCustomersWhoLiveAtTheSameAddress")
+    public Integer findNumberOfCustomersWhoLiveAtTheSameAddress(@RequestParam(name = "address") String address){
+        return customerService.findNumberOfCustomersWhoLiveAtTheSameAddress(address);
+    }
 
 
 }

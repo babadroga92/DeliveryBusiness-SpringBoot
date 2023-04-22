@@ -98,4 +98,17 @@ public class CustomerServiceImpl implements ICustomerService {
         return this.iOrderDao.findByCustomer(customer);
     }
 
+    @Override
+    public Integer findNumberOfCustomersPerCity(String name) {
+        if(name.isBlank()){
+            return 0;
+        }
+        return this.iCustomerDao.findNumberOfCustomersPerCity(name);
+    }
+
+    @Override
+    public Integer findNumberOfCustomersWhoLiveAtTheSameAddress(String address) {
+        return this.iCustomerDao.findNumberOfCustomersWhoLiveAtTheSameAddress(address);
+    }
+
 }
