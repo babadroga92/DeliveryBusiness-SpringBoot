@@ -1,7 +1,9 @@
 package com.deliverybusiness.controller;
 
 import com.deliverybusiness.model.Restaurant;
+import com.deliverybusiness.model.view.View;
 import com.deliverybusiness.service.RestaurantServiceImpl;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,5 +42,10 @@ public class RestaurantController {
     @PutMapping("/{id}")
     public Restaurant updateRestaurant(@PathVariable int id, @RequestBody @Valid Restaurant restaurant){
         return restaurantService.updateRestaurant(restaurant,id);
+    }
+    @JsonView(View.ShowStatus.class)
+    @GetMapping("/activeRestaurants")
+    public List<Restaurant> findByIsActiveTrue(){
+        return restaurantService.findByIsActiveTrue();
     }
 }

@@ -16,4 +16,6 @@ public interface IRestaurantService {
     Restaurant findById(int id) throws WrongIdException;
 
     Restaurant updateRestaurant(Restaurant restaurant, int id);
+
+    List<Restaurant> findByIsActiveTrue();
 }

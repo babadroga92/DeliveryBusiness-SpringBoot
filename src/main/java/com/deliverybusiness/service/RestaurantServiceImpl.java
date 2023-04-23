@@ -65,4 +65,9 @@ public class RestaurantServiceImpl implements  IRestaurantService{
         restaurant1.setCity(new City());
         return  restaurant1;
     }
+
+    @Override
+    public List<Restaurant> findByIsActiveTrue() {
+        return this.iRestaurantDao.findByIsActiveTrue();
+    }
 }
