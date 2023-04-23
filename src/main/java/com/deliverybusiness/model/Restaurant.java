@@ -1,6 +1,8 @@
 package com.deliverybusiness.model;
 
+import com.deliverybusiness.model.view.View;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,8 +15,10 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
+    @JsonView(View.ShowName.class)
     @Column(name = "Name")
     private String name;
+    @JsonView(View.ShowStatus.class)
     @Column(name = "is_active")
     private boolean isActive;
     @Column(name = "Description")

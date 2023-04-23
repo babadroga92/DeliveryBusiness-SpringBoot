@@ -7,4 +7,6 @@ public class View {
 
     public static class ShowZipCode extends ShowName{}
     public static class ShowAll extends ShowZipCode{}
+
+    public static class ShowStatus extends ShowName{}
 }

@@ -14,4 +14,6 @@ public interface IRestaurantDao extends JpaRepository<Restaurant, Integer> {
     List<Restaurant> findByIsActiveTrue();
 
 
+
+
 }
