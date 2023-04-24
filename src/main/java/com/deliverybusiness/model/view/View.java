@@ -9,4 +9,7 @@ public class View {
     public static class ShowAll extends ShowZipCode{}
 
     public static class ShowStatus extends ShowName{}
+
+    public static class Minimal{}
+    public static class Master extends Minimal{}
 }

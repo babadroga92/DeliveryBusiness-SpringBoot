@@ -72,8 +72,8 @@ public class CustomerServiceImpl implements ICustomerService {
     }
 
     @Override
-    public Page<Customer> findByCityAndAddress(String address, String name, Pageable pageable) {
-        return this.iCustomerDao.findByCityAndAddress(address,name, pageable);
+    public Page<Customer> findByCityAndAddress(String address, String cityName, Pageable pageable) {
+        return this.iCustomerDao.findByCityAndAddress(address,cityName, pageable);
     }
 
     @Override
