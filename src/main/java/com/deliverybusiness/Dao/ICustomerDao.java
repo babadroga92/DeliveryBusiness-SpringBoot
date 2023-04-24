@@ -21,8 +21,8 @@ public interface ICustomerDao extends JpaRepository<Customer, Integer> {
     List<Customer> findByFullNameIsNot(String name);
 
 
-    @Query("Select c from Customer c WHERE (:address is null or c.address = :address) and (:name is null or c.city.name = :name)")
-    Page<Customer> findByCityAndAddress(String address, String name, Pageable pageable);
+    @Query("Select c from Customer c WHERE (:address is null or c.address = :address) and (:cityName is null or c.city.name = :cityName)")
+    Page<Customer> findByCityAndAddress(String address, String cityName, Pageable pageable);
 
     @Query("Select count (c.id) from Customer c where c.city.name = :name")
     Integer findNumberOfCustomersPerCity(String name);

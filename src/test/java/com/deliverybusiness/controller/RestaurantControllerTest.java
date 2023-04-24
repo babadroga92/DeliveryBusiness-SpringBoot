@@ -3,6 +3,7 @@ package com.deliverybusiness.controller;
 
 import com.deliverybusiness.model.Restaurant;
 import com.deliverybusiness.service.RestaurantServiceImpl;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,10 +73,12 @@ class RestaurantControllerTest {
                 .andExpect(jsonPath("$.[2].name", is("Tri sesira")))
                 .andReturn();
 
-        List<Restaurant> expectedListOfRestaurants = objectMapper.readValue(mvcResult.getResponse().getContentAsByteArray(), List.class);
+        List<Restaurant> expectedListOfRestaurants = objectMapper.readValue(mvcResult.getResponse().getContentAsByteArray(), new TypeReference<List<Restaurant>>() {
+        });
 
         assertEquals(actualListOfRestaurants.size(), expectedListOfRestaurants.size());
         assertEquals(actualListOfRestaurants.get(1).getName(), "Becar" );
+        assertEquals(actualListOfRestaurants.get(0).getName(), expectedListOfRestaurants.get(0).getName());
     }
 
     @Test

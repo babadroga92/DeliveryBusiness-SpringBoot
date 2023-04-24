@@ -3,6 +3,7 @@ import com.deliverybusiness.exception.WrongIdException;
 import com.deliverybusiness.model.Customer;
 import com.deliverybusiness.model.Orders;
 import com.deliverybusiness.model.dto.CustomerDTO;
+import com.deliverybusiness.model.dto.CustomerSearchDTO;
 import com.deliverybusiness.service.CustomerServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,8 +59,12 @@ public class CustomerController {
 
     @GetMapping("/address")
     public Page<Customer> findByCityAndAddress(@RequestParam(name = "address", required = false)String address,
-                                               @RequestParam(name = "name", required = false)String name, Pageable pageable){
+                                               @RequestParam(name = "cityName", required = false)String name, Pageable pageable){
         return customerService.findByCityAndAddress(address,name, pageable);
+    }
+    @PostMapping("/address")
+    public Page<Customer> findByCityAndAddressDTO(@RequestBody @Valid CustomerSearchDTO customerSearchDTO, Pageable pageable){
+        return customerService.findByCityAndAddress(customerSearchDTO.getAddress(), customerSearchDTO.getCityName(), pageable);
     }
 
     @PutMapping("/address")
