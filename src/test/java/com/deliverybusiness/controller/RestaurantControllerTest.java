@@ -17,16 +17,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
 import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.lang.reflect.Array.get;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -94,18 +91,50 @@ class RestaurantControllerTest {
     }
 
     @Test
-    void findByName() {
+    void findByName() throws Exception {
+
+        List<Restaurant> listOfRestaurants = new ArrayList<>();
+        listOfRestaurants.add(restoran);
+        when(restaurantServiceImpl.findByName(any())).thenReturn(listOfRestaurants);
+        MvcResult result = mvc.perform(MockMvcRequestBuilders.get("/restaurant/name")
+                .param("name", listOfRestaurants.get(0).getName())).andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].name", is("Skadarlija")))
+                .andReturn();
+        List<Restaurant> returnedList = objectMapper.readValue(result.getResponse().getContentAsByteArray(),
+                new TypeReference<List<Restaurant>>() {
+        });
+        assertEquals(listOfRestaurants.size(), returnedList.size());
+        assertEquals(listOfRestaurants.get(0).getName(), returnedList.get(0).getName());
     }
 
     @Test
-    void deleteRestaurant() {
+    void deleteRestaurant() throws Exception {
+        when(restaurantServiceImpl.removeRestaurant(anyInt())).thenReturn("restaurant removed");
+        MvcResult result = mvc.perform(delete("/restaurant/{id}",
+                restoran.getId())).andExpect(status().isOk()).andReturn();
+        assertEquals("restaurant removed", result.getResponse().getContentAsString());
     }
 
     @Test
-    void updateRestaurant() {
+    void updateRestaurant() throws Exception {
+        when(restaurantServiceImpl.updateRestaurant(any(),anyInt())).thenReturn(this.restoran);
+        MvcResult result = mvc.perform(put("/restaurant/{id}", this.restoran.getId()).contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsBytes(this.restoran))).andExpect(status().isOk()).andReturn();
+        Restaurant rest = objectMapper.readValue(result.getResponse().getContentAsByteArray(), Restaurant.class);
+        assertEquals(this.restoran.getName(), rest.getName());
     }
 
     @Test
-    void findByIsActiveTrue() {
+    void findByIsActiveTrue() throws Exception {
+        List<Restaurant> listaAktivnihRestorana = new ArrayList<>();
+        listaAktivnihRestorana.add(restoran);
+        listaAktivnihRestorana.add(restoran2);
+        listaAktivnihRestorana.add(restoran3);
+        when(restaurantServiceImpl.findByIsActiveTrue()).thenReturn(listaAktivnihRestorana);
+        MvcResult result = mvc.perform(get("/restaurant/activeRestaurants")).andExpect(status().isOk()).andReturn();
+        List<Restaurant> dobijenaListaRestorana = objectMapper.readValue(result.getResponse().getContentAsByteArray(), new TypeReference<List<Restaurant>>() {
+        });
+        assertEquals(listaAktivnihRestorana.size(), dobijenaListaRestorana.size());
+        assertEquals(listaAktivnihRestorana.get(0).getName(),dobijenaListaRestorana.get(0).getName());
     }
 }

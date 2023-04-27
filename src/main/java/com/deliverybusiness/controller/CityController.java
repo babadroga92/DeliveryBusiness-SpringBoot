@@ -2,6 +2,7 @@ package com.deliverybusiness.controller;
 
 import com.deliverybusiness.exception.WrongIdException;
 import com.deliverybusiness.model.City;
+import com.deliverybusiness.model.dto.CitySearchDTO;
 import com.deliverybusiness.model.view.View;
 import com.deliverybusiness.service.CityServiceImpl;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -51,6 +52,11 @@ public class CityController {
     public List<City> findByName(@RequestParam (name = "name", required = true) String name){
         return cityService.findByName(name);
     }
+    @PostMapping("/name")
+    public List<City> findByNameDTO(@RequestBody @Valid CitySearchDTO citySearchDTO){
+        return cityService.findByName(citySearchDTO.getName());
+    }
+
     @GetMapping("/pattern")
     public List<City> findByNameLike(@RequestParam(name = "name", required = true) String pattern){
         return cityService.findByNameLike(pattern);

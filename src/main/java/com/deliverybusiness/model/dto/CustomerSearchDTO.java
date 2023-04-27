@@ -3,10 +3,10 @@ package com.deliverybusiness.model.dto;
 import javax.validation.constraints.NotBlank;
 
 public class CustomerSearchDTO {
-    @NotBlank(message = "This field is required")
+    @NotBlank(message = "This field can not be empty")
 
     private String cityName;
-    @NotBlank(message = "This field is required")
+    @NotBlank(message = "This field can not be empty")
     private String address;
 
     public CustomerSearchDTO() {
